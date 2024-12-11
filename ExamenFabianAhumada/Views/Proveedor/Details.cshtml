@@ -4,20 +4,58 @@
     ViewData["Title"] = "Detalles del Proveedor";
 }
 
-<div class="container mt-4">
-    <h2 class="text-center">Detalles del Proveedor</h2>
-    <div class="table-responsive bg-light p-4 shadow rounded">
-        <dl class="row">
-            <dt class="col-sm-4 text-end fw-bold">RUT:</dt>
-            <dd class="col-sm-8">@Html.DisplayFor(model => model.Rut)</dd>
-            <dt class="col-sm-4 text-end fw-bold">Nombre:</dt>
-            <dd class="col-sm-8">@Html.DisplayFor(model => model.Nombre)</dd>
-            <dt class="col-sm-4 text-end fw-bold">Ubicación:</dt>
-            <dd class="col-sm-8">@Html.DisplayFor(model => model.UbicacionId)</dd>
-        </dl>
-    </div>
-    <div class="text-center mt-3">
-        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning me-2">Editar</a>
-        <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Detalles del Proveedor</h2>
+    <div class="card shadow">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-4 text-end fw-bold">RUT:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Rut)</dd>
+
+                <dt class="col-sm-4 text-end fw-bold">Nombre:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Nombre)</dd>
+
+                <dt class="col-sm-4 text-end fw-bold">Ubicación:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.UbicacionId)</dd>
+            </dl>
+            <div class="text-center mt-4">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning me-2">Editar</a>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar</button>
+                <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+            </div>
+        </div>
     </div>
 </div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirmar Eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                ¿Está seguro de que desea eliminar al proveedor "<strong>@Model.Nombre</strong>"? Esta acción no se puede deshacer.
+            </div>
+            <div class="modal-footer">
+                <form asp-action="Delete" asp-route-id="@Model.Id">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-image: url('/Imagenes/proveedoress.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 100vh;
+        overflow: hidden;
+    }
+</style>

@@ -22,9 +22,11 @@ namespace ExamenFabianAhumada.Controllers
         // GET: Proveedor
         public async Task<IActionResult> Index()
         {
+            // Lista de proveedor
+            var proveedores = await _context.Proveedor.ToListAsync(); 
+            // Lista de ubicacion
+            var ubicaciones = await _context.Ubicacion.ToListAsync(); 
 
-            var proveedores = await _context.Proveedor.ToListAsync(); // Lista de proveedor
-            var ubicaciones = await _context.Ubicacion.ToListAsync(); // Lista de ubicacion
             // Pasar ubicaciones al viewbag
             ViewBag.Ubicaciones = ubicaciones.ToDictionary(u => u.Id, u => u.Nombre);
 
@@ -81,8 +83,8 @@ namespace ExamenFabianAhumada.Controllers
                 .Join(_context.Ubicacion,
                       proveedor => proveedor.UbicacionId,
                       ubicacion => ubicacion.Id,
-                      (proveedor, ubicacion) => new { proveedor, ubicacion })  //Aquí se hace el inner join
-                .GroupBy(p => p.ubicacion.Nombre)  // Agrupamos por el nombre de la ubicación
+                      (proveedor, ubicacion) => new { proveedor, ubicacion })  // Aqui se hace el inner join
+                .GroupBy(p => p.ubicacion.Nombre)  // Agrupacion por nombre de ubicacion
                 .Select(g => new ProveedorUbicacion
                 {
                     UbicacionNombre = g.Key,
@@ -106,17 +108,21 @@ namespace ExamenFabianAhumada.Controllers
                 .Join(_context.Ubicacion,
                       proveedor => proveedor.UbicacionId,
                       ubicacion => ubicacion.Id,
-                      (proveedor, ubicacion) => new { proveedor, ubicacion }) // Realizamos el join
-                .Where(p => p.ubicacion.Nombre == ubicacionNombre) // Filtramos por el nombre de la ubicación
-                .Select(p => p.proveedor) // Seleccionamos solo el proveedor
+                      // Inner Join
+                      (proveedor, ubicacion) => new { proveedor, ubicacion }) 
+                // Nombre de la ubicacion
+                .Where(p => p.ubicacion.Nombre == ubicacionNombre) 
+                // Select solo al proveedor
+                .Select(p => p.proveedor) 
                 .ToListAsync();
 
             if (proveedores == null || !proveedores.Any())
             {
                 return NotFound();
             }
-
-            ViewData["UbicacionNombre"] = ubicacionNombre;  // Pasar el nombre de la ubicación a la vista
+            
+            // Pasar el nombre de la ubicación a la vista
+            ViewData["UbicacionNombre"] = ubicacionNombre;  
             return View(proveedores);
         }
 

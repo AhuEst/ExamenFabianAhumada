@@ -1,69 +1,69 @@
 ﻿@model ExamenFabianAhumada.Data.Proveedor
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Proveedor";
 }
 
-<h1>Edit</h1>
-
-<h4>Proveedor</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Rut" class="control-label"></label>
-                <input asp-for="Rut" class="form-control" />
-                <span asp-validation-for="Rut" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UbicacionId" class="control-label"></label>
-                <select asp-for="UbicacionId" class="form-select" asp-items="ViewBag.Ubicaciones">
-                    <option value="">Seleccione una ubicación</option>
-                </select>
-                <span asp-validation-for="UbicacionId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Editar Proveedor</h2>
+    <div class="card shadow">
+        <div class="card-body">
+            <form id="EditForm" asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="mb-3">
+                    <label asp-for="Rut" class="form-label">RUT</label>
+                    <input asp-for="Rut" class="form-control" />
+                    <span asp-validation-for="Rut" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Nombre" class="form-label">Nombre</label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="UbicacionId" class="form-label">Ubicación</label>
+                    <select asp-for="UbicacionId" class="form-select" asp-items="ViewBag.Ubicaciones">
+                        <option value="">Seleccione una ubicación</option>
+                    </select>
+                    <span asp-validation-for="UbicacionId" class="text-danger"></span>
+                </div>
+                <div class="text-center mt-4">
+                    <a asp-action="Index" class="btn btn-secondary me-2">Volver</a>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal">Guardar</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Confirmar Guardado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                ¿Está seguro de que desea guardar los cambios en este proveedor?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" form="EditForm">Guardar</button>
+            </div>
+        </div>
+    </div>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const forms = document.querySelectorAll("form");
-            forms.forEach(form => {
-                form.addEventListener("submit", function (event) {
-                    const confirmed = confirm("¿Estás seguro de que deseas realizar esta acción?");
-                    if (!confirmed) {
-                        event.preventDefault();
-                    }
-                });
-            });
-
-            const deleteButtons = document.querySelectorAll(".btn-delete");
-            deleteButtons.forEach(button => {
-                button.addEventListener("click", function (event) {
-                    const confirmed = confirm("¿Estás seguro de que deseas eliminar este registro?");
-                    if (!confirmed) {
-                        event.preventDefault();
-                    }
-                });
-            });
-        });
-    </script>
-}
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-image: url('/Imagenes/proveedoress.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 100vh;
+        overflow: hidden;
+    }
+</style>

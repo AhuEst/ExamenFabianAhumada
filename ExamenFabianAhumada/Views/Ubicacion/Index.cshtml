@@ -4,39 +4,38 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Ubicaciones</h1>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-12 text-center mb-4">
+                <h1 class="text-black">Ubicaciones</h1>
+                <a asp-action="Create" class="btn btn-success btn-lg">Crear Nueva Ubicación</a>
+            </div>
+        </div>
 
-<p>
-    <a asp-action="Create" class="btn btn-success btn-sm">Crear Nueva</a>
-</p>
-
-<div class="table-responsive">
-    <table class="table table-bordered table-hover shadow-sm">
-        <thead class="thead-dark">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Nombre)
-                </th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nombre)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Editar</a>
-                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Detalles</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Eliminar</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover shadow-lg bg-white">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Editar</a>
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Detalles</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 <style>
     body {
@@ -64,6 +63,11 @@
     }
 
     .btn {
-        margin: 0 2px;
+        margin: 0 5px;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        font-weight: 600;
     }
 </style>

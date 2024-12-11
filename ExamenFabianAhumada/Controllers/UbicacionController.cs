@@ -140,17 +140,28 @@ namespace ExamenFabianAhumada.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Ubicacion == null)
+            // Verificar si hay proveedores asociados
+            var tieneProveedores = await _context.Proveedor.AnyAsync(p => p.UbicacionId == id);
+
+            if (tieneProveedores)
             {
-                return Problem("Entity set 'EjemploDbContext.Ubicacion'  is null.");
+                var ubicacion = await _context.Ubicacion.FindAsync(id);
+                if (ubicacion == null)
+                {
+                    return NotFound();
+                }
+                ViewBag.ErrorMessage = "No se puede eliminar la ubicación porque tiene proveedores asociados.";
+                return View("Delete", ubicacion);
             }
-            var ubicacion = await _context.Ubicacion.FindAsync(id);
-            if (ubicacion != null)
+
+            // Si no hay proveedores asociados, eliminar
+            var ubicacionAEliminar = await _context.Ubicacion.FindAsync(id);
+            if (ubicacionAEliminar != null)
             {
-                _context.Ubicacion.Remove(ubicacion);
+                _context.Ubicacion.Remove(ubicacionAEliminar);
+                await _context.SaveChangesAsync();
             }
-            
-            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 

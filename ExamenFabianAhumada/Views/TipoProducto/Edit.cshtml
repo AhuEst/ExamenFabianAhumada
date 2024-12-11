@@ -1,73 +1,70 @@
 ﻿@model ExamenFabianAhumada.Data.TipoProducto
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Tipo de Producto";
 }
 
-<h1>Edit</h1>
-
-<h4>TipoProducto</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Estado" class="control-label"></label>
-                <select asp-for="Estado" class="form-control">
-                    <option value="Disponible">Disponible</option>
-                    <option value="No disponible">No disponible</option>
-                </select>
-                <span asp-validation-for="Estado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Editar Tipo de Producto</h2>
+    <div class="card shadow">
+        <div class="card-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="mb-3">
+                    <label asp-for="Nombre" class="form-label">Nombre</label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Descripcion" class="form-label">Descripción</label>
+                    <input asp-for="Descripcion" class="form-control" />
+                    <span asp-validation-for="Descripcion" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Estado" class="form-label">Estado</label>
+                    <select asp-for="Estado" class="form-select">
+                        <option value="Disponible">Disponible</option>
+                        <option value="No disponible">No disponible</option>
+                    </select>
+                    <span asp-validation-for="Estado" class="text-danger"></span>
+                </div>
+                <div class="text-center mt-4">
+                    <a asp-action="Index" class="btn btn-secondary me-2">Volver</a>
+                    <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal">Guardar</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Confirmar Guardado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                ¿Está seguro de que desea guardar los cambios en este tipo de producto?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" form="EditForm">Guardar</button>
+            </div>
+        </div>
+    </div>
 </div>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-image: url('/Imagenes/producto.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 100vh;
+        overflow: hidden;
     }
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const forms = document.querySelectorAll("form");
-            forms.forEach(form => {
-                form.addEventListener("submit", function (event) {
-                    const confirmed = confirm("¿Estás seguro de que deseas realizar esta acción?");
-                    if (!confirmed) {
-                        event.preventDefault();
-                    }
-                });
-            });
-
-            const deleteButtons = document.querySelectorAll(".btn-delete");
-            deleteButtons.forEach(button => {
-                button.addEventListener("click", function (event) {
-                    const confirmed = confirm("¿Estás seguro de que deseas eliminar este registro?");
-                    if (!confirmed) {
-                        event.preventDefault();
-                    }
-                });
-            });
-        });
-    </script>
-}
-
+</style>

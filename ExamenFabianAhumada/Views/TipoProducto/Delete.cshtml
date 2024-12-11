@@ -1,68 +1,64 @@
 ﻿@model ExamenFabianAhumada.Data.TipoProducto
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Eliminar Tipo de Producto";
 }
 
-<h1>Delete</h1>
+<h1 class="mt-4 mb-4">Eliminar Tipo de Producto</h1>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>TipoProducto</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Estado)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Estado)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+<div class="card">
+    <div class="card-header">
+        Confirmación de Eliminación
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">¿Estás seguro de que deseas eliminar este tipo de producto?</h5>
+        <dl class="row">
+            <dt class="col-sm-3">Nombre</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Nombre)</dd>
+
+            <dt class="col-sm-3">Descripción</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Descripcion)</dd>
+
+            <dt class="col-sm-3">Estado</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Estado)</dd>
+        </dl>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+            Eliminar
+        </button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </div>
 </div>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const forms = document.querySelectorAll("form");
-            forms.forEach(form => {
-                form.addEventListener("submit", function (event) {
-                    const confirmed = confirm("¿Estás seguro de que deseas realizar esta acción?");
-                    if (!confirmed) {
-                        event.preventDefault();
-                    }
-                });
-            });
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que deseas eliminar el tipo de producto "<strong>@Model.Nombre</strong>"? Esta acción no se puede deshacer.
+            </div>
+            <div class="modal-footer">
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-            const deleteButtons = document.querySelectorAll(".btn-delete");
-            deleteButtons.forEach(button => {
-                button.addEventListener("click", function (event) {
-                    const confirmed = confirm("¿Estás seguro de que deseas eliminar este registro?");
-                    if (!confirmed) {
-                        event.preventDefault();
-                    }
-                });
-            });
-        });
-    </script>
-}
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-image: url('/Imagenes/producto.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 100vh;
+        overflow: hidden;
+    }
+</style>
