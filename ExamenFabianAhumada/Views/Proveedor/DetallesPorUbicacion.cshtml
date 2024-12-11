@@ -1,0 +1,31 @@
+﻿@model IEnumerable<ExamenFabianAhumada.Data.Proveedor>
+
+@{
+    ViewData["Title"] = $"Proveedores en {ViewData["UbicacionNombre"]}";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center">Proveedores en @ViewData["UbicacionNombre"]</h2>
+    <div class="table-responsive bg-light p-4 shadow rounded">
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>RUT</th>
+                    <th>Nombre</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var proveedor in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => proveedor.Rut)</td>
+                        <td>@Html.DisplayFor(modelItem => proveedor.Nombre)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center mt-3">
+        <a asp-action="ProveedoresPorUbicacion" class="btn btn-secondary">Volver</a>
+    </div>
+</div>

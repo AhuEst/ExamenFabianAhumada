@@ -1,0 +1,23 @@
+﻿@model ExamenFabianAhumada.Data.Proveedor
+
+@{
+    ViewData["Title"] = "Detalles del Proveedor";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center">Detalles del Proveedor</h2>
+    <div class="table-responsive bg-light p-4 shadow rounded">
+        <dl class="row">
+            <dt class="col-sm-4 text-end fw-bold">RUT:</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.Rut)</dd>
+            <dt class="col-sm-4 text-end fw-bold">Nombre:</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.Nombre)</dd>
+            <dt class="col-sm-4 text-end fw-bold">Ubicación:</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.UbicacionId)</dd>
+        </dl>
+    </div>
+    <div class="text-center mt-3">
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning me-2">Editar</a>
+        <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+    </div>
+</div>

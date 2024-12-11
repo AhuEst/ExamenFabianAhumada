@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ExamenFabianAhumada.Models.ProveedorUbicacion>
+
+@{
+    ViewData["Title"] = "Registros";
+}
+
+<h1>Registros</h1>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover shadow-sm">
+        <thead class="thead-dark">
+            <tr>
+                <th>Ubicación</th>
+                <th>Cantidad de Proveedores</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.UbicacionNombre</td>
+                    <td>@item.CantidadProveedores</td>
+                    <td>
+                        <a asp-action="DetallesPorUbicacion" asp-route-ubicacionNombre="@item.UbicacionNombre" class="btn btn-info btn-sm">Ver Proveedores</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+    }
+
+    .table {
+        background-color: #ffffff;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f0f0f5;
+    }
+
+    .thead-dark th {
+        background-color: #343a40;
+        color: #ffffff;
+    }
+
+    .btn {
+        margin: 0 2px;
+    }
+</style>
